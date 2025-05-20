@@ -1,0 +1,117 @@
+\ProvidesPackage{custom}
+
+% package list
+\usepackage[a4paper,left=1in, right=1in, top=1in]{geometry} % set document dimensions
+\usepackage[dvipsnames]{xcolor} % more colors
+\usepackage{physics}
+% \usepackage{xparse}  this and
+% \usepackage{amsmath} this is loaded by physics by default
+\usepackage{siunitx} % for SI units
+\AtBeginDocument{\RenewCommandCopy\qty\SI} % to use siunitx with physics package
+% get rid of warning from siunitx and physics package
+\ExplSyntaxOn 
+\msg_redirect_name:nnn { siunitx } { physics-pkg } { none }
+\ExplSyntaxOff 
+
+\usepackage{esint} % for path integral symbol
+
+% input packages
+% \usepackage{draculatheme} % dracula theme, the best theme
+\definecolor{draculabg}      {RGB} {40,   42,   54}
+\definecolor{draculacl}      {RGB} {68,   71,   90}
+\definecolor{draculafg}      {RGB} {248,  248,  242}
+\definecolor{draculacomment} {RGB} {98,   114,  164}
+\definecolor{draculacyan}    {RGB} {139,  233,  253}
+\definecolor{draculagreen}   {RGB} {80,   250,  123}
+\definecolor{draculaorange}  {RGB} {255,  184,  108}
+\definecolor{draculapink}    {RGB} {255,  121,  198}
+\definecolor{draculapurple}  {RGB} {189,  147,  249}
+\definecolor{draculared}     {RGB} {255,  85,   85}
+\definecolor{draculayellow}  {RGB} {241,  250,  140}
+
+% \usepackage[enable]{darkmode}
+\usepackage{import} 
+\usepackage{hyperref} % for hyperlinks
+\usepackage{bookmark} % for better bookmarks
+\hypersetup{
+  colorlinks   = true,    % Colours links instead of ugly boxes
+  urlcolor     = draculagreen,    % Colour for external hyperlinks without dracula theme: Cerulean
+  linkcolor    = draculapurple,    % Colour of internal links "Cerulean"
+  filecolor    = draculagreen,    % Colour of file links "Cerulean"
+  citecolor    = draculared      % Colour of citations "Red"
+}
+\usepackage{graphicx} % set image path for graphicx
+\graphicspath{{./images/}} % set graphics path from current directory (./) to images directory for main.tex file
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{subfiles} 
+
+% custom formatting
+\numberwithin{figure}{section}
+\numberwithin{equation}{section}
+% \setlength{\parindent}{0pt} % no ident after new line
+
+% custom commmands
+\newcommand{\vect}[1]{\mathbf{#1}} % instead use \vb{#1} from physics package
+\newcommand{\barh}{\vspace{5px} \hrule \vspace{5px}} % horizontal bar
+\newcommand{\qt}{\quantity} % quantity shortcut
+
+% custom environments for code highlighting
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle} 
+
+% hyperbolic math operators
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\sgn}{sgn}
+
+% more math packages
+\usepackage{cancel}
+\usepackage{bbold}
+\usepackage{polynom} % polynomial long division e.g. \polylongdiv{2x^3-4x^2+2x+1}{x-1} its kinda cracked
+
+% format/style packages
+\usepackage{fancyhdr}
+
+% seperation vector script r
+\usepackage{calligra}
+
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+% physics constants
+\newcommand{\ke}{\frac{1}{4\pi\epsilon_0}} % coulomb's constant
+\newcommand{\lagr}{\mathcal{L}} % lagrangian
+\newcommand{\cf}{\vb F_{\text{cf}}} % coulomb force
+\newcommand{\cor}{\vb F_{\text{cor}}} % coriolis force
+\newcommand{\ext}{\vb F_{\text{ext}}} % external force
+
+\DeclareSIUnit\angstrom{\text{Å}}

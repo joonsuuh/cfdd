@@ -1,0 +1,2 @@
+# Jupyter takes up too much space in the language stats
+*.ipynb linguist-documentation

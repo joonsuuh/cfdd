@@ -1,0 +1,52 @@
+.vscode
+.venv
+*.csv
+*.DS_Store
+
+# Ignore latex build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# exclude png only in ./data/sound_wave dir
+data/sound_wave/*.png
+# include few png files in ./data/sound_wave dir
+!data/sound_wave/sound_wave_000.png
+!data/sound_wave/sound_wave_010.png
+!data/sound_wave/cmax_output_rho_77_unstable.png
+!data/sound_wave/cmax_output_rho_77_stable.png
+!data/sound_wave/cmax_output_rho_c4_t200.png
+
+# kh dir
+data/kelvin/*.png
+!data/sound_wave/kh_000.png
+!data/sound_wave/kh_010.png
+data/kelvin_helmholtz/*.png
+
+# cpp build files
+test1
+swtest1
+swtest2
+swtest3
+swtest4
+
+kh1
+khmp1
+khmp2
+khmp3
+khmp101
+khtest101
+
+vy1
+vy2
+vy3
+cmax1
+asdf
+
+largek
+rand1
+rand2
