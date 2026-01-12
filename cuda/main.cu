@@ -2,20 +2,18 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <omp.h>
-#include "fluid_solver_2d_kh_MP.h"
+#include "fs2d.cuh"
 #include <chrono>
-using namespace std;
 
-const float a = 0.25;
-const float b = 0.75;
-const float rho_d = 4;
-const float rho_0 = 1;
-const float v0 = 0.5;
-const float P0 = 2.5;
-const float k = 6 * M_PI;
-const float v_small = 0.01;
-const float sigma = 0.05;
+const float a = 0.25f;
+const float b = 0.75f;
+const float rho_d = 4.0f;
+const float rho_0 = 1.0f;
+const float v0 = 0.5f;
+const float P0 = 2.5f;
+const float k = 2.0f * M_PI;
+const float v_small = 0.01f;
+const float sigma = 0.05f;
 
 int main(){
     // start timer  
@@ -24,20 +22,17 @@ int main(){
     // simulation parameters
     int Nx = 514;
     int Ny = 514;
-    float Lx = 1.0;
-    float Ly = 1.0;
-    float gamma = 5.0 / 3.0;
-    float output_dt = 0.01;
+    float Lx = 1.0f;
+    float Ly = 1.0f;
+    float gamma = 5.0 / 3.0f;
+    float output_dt = 0.01f;
 
-    fluid_solver_2d solver(Lx, Ly, Nx, Ny, gamma, output_dt);
+    FluidSolver2D solver(Lx, Ly, Nx, Ny, gamma, output_dt);
 
     std::vector<float> rho(Nx * Ny);
     std::vector<float> vx(Nx * Ny);
     std::vector<float> vy(Nx * Ny);
     std::vector<float> P(Nx * Ny);
-
-    int max_threads = omp_get_max_threads();
-    cout << "Threads Used: " << max_threads << endl;
 
     float dx = Lx / (Nx - 2);
     float dy = Ly / (Ny - 2);
@@ -62,11 +57,12 @@ int main(){
     }
 
     solver.init(rho, vx, vy, P);
-    solver.solve(0.0, 1.0);
+    solver.solve(0.0f, 5.0f);
+    cudaDeviceSynchronize();
 
     // end timer
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> elapsed = end - start;
-    cout << "Time: " << elapsed.count() << " s" << endl;
+    std::cout << "Time: " << elapsed.count() << " s" << std::endl;
     return 0; 
 }
